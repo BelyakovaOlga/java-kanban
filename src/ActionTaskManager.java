@@ -1,2 +1,9 @@
-package PACKAGE_NAME;public class ActionTaskManager {
+enum ActionTaskManager {
+    ADDTask,
+    GETTASK,
+    GETALL,
+    UPDTASK,
+    DELTASK,
+    DELLALL,
+    EXIT
 }
