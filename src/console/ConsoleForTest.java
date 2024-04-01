@@ -1,5 +1,13 @@
+package console;
+import enumTask.ActionTaskManager;
+import enumTask.TaskType;
+import manager.TaskManager;
+import enumTask.TaskStatus;
+import dataModel.Task;
+import dataModel.Epic;
+import dataModel.SubTask;
 import java.util.Scanner;
-public class ConsoleForTest{
+public class ConsoleForTest {
     TaskManager taskManager;
     Scanner scanner = new Scanner(System.in);
     public void setTaskManager(TaskManager taskManager) {
@@ -96,8 +104,8 @@ public class ConsoleForTest{
                     int taskIdDel = scanner.nextInt();
                     switch(taskManager.getTask(taskIdDel).getTaskType()) {
                         case TaskType.TASK:
-                           taskManager.deleteTask(taskIdDel);
-                           break;
+                            taskManager.deleteTask(taskIdDel);
+                            break;
                         case TaskType.EPIC:
                             taskManager.deleteEpic(taskIdDel);
                             break;

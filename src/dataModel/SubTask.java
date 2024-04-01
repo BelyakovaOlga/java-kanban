@@ -1,5 +1,9 @@
-public class SubTask extends Task{
-    int epicTaskId;
+package dataModel;
+import dataModel.Task;
+import enumTask.TaskType;
+
+public class SubTask extends Task {
+    public int epicTaskId;
     public SubTask(int taskId, String taskName,String taskDescription, int epicTaskId){
         super(taskId,taskName,taskDescription);
         this.epicTaskId = epicTaskId;

@@ -1,4 +1,6 @@
-enum ActionTaskManager {
+package enumTask;
+
+public enum ActionTaskManager {
     ADDTask,
     GETTASK,
     GETALL,
@@ -7,3 +9,4 @@ enum ActionTaskManager {
     DELLALL,
     EXIT
 }
+

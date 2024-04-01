@@ -1,3 +1,5 @@
+package enumTask;
+
 public enum TaskType {
     TASK,
     EPIC,

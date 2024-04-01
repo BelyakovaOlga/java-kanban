@@ -1,5 +1,9 @@
+package dataModel;
+import dataModel.SubTask;
+import dataModel.Task;
+import enumTask.TaskType;
 import java.util.ArrayList;
-public class Epic extends Task{
+public class Epic extends Task {
     ArrayList<SubTask> subTasksList = new ArrayList<>();
     public Epic(int taskId, String taskName,String taskDescription){
         super(taskId,taskName,taskDescription);
@@ -24,7 +28,8 @@ public class Epic extends Task{
         return strRes;
     }
 
-    public void setSubTasksMap(ArrayList<SubTask> subTasksList) {
+    public void setSubTasksList(ArrayList<SubTask> subTasksList) {
+
         this.subTasksList = subTasksList;
     }
 }

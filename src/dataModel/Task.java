@@ -1,8 +1,12 @@
+package dataModel;
+import enumTask.TaskStatus;
+import enumTask.TaskType;
+
 public class Task {
-    int       taskId;
-    String    name;
-    String    description;
-    TaskStatus status;
+    public int  taskId;
+    public String    name;
+    public String    description;
+    public TaskStatus status;
     public Task(int taskId, String taskName,String taskDescription){
         this.taskId = taskId;
         this.name = taskName;
@@ -11,7 +15,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" +
+        return " Task{" +
                 " ID=" + taskId +
                 ", Название ='" + name + '\'' +
                 ", Описание ='" + description + '\'' +

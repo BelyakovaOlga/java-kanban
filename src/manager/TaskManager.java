@@ -1,14 +1,20 @@
+package manager;
+
+import dataModel.Epic;
+import dataModel.SubTask;
+import dataModel.Task;
+import enumTask.TaskStatus;
+import enumTask.TaskType;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TaskManager {
     int counterTask;
-    int counterSubTask;
     HashMap<Integer, Task> tasks = new HashMap<>();
     HashMap<Integer, Epic> epics = new HashMap<>();
     HashMap<Integer, SubTask> subTasks = new HashMap<>();
     HashMap<Integer, TaskType> mapNumberTask = new HashMap<>();
-    HashMap<Integer, ArrayList> subTasksEpic = new HashMap<>(); // список подзадач для Эпиков( key: ID of Epic)
+    HashMap<Integer, ArrayList> subTasksEpic = new HashMap<>(); // список подзадач для Эпиков( key: ID of dataModel.Epic)
 
     public Task createTask(String nameTask, String descriptionTask) {
         counterTask++;
@@ -42,7 +48,7 @@ public class TaskManager {
         }
         subTasksList.add(subTask);
         subTasksEpic.put(epicId, subTasksList);
-        epic.setSubTasksMap(subTasksList);
+        epic.setSubTasksList(subTasksList);
         return subTask;
     }
 
@@ -100,7 +106,7 @@ public class TaskManager {
             subTasksList = subTasksEpic.get(taskId);
             if (subTasksList != null) {
                 for (SubTask subTask : subTasksList) {
-                    subTasks.remove(subTask.taskId);
+                    subTasks.remove(subTask.getTaskId());
                 }
                 subTasksList.clear();
             }
@@ -112,9 +118,11 @@ public class TaskManager {
     public void deleteSubTask(int taskId) {
         SubTask subTask = subTasks.get(taskId);
         if (subTask != null) {
+            Epic epic = epics.get(subTask.epicTaskId);
             ArrayList<SubTask> subTasksList = subTasksEpic.get(subTask.epicTaskId);
             if (subTasksList != null) {
                 subTasksList.remove(subTask);
+                epic.setSubTasksList(subTasksList);
             }
             subTasks.remove(taskId);
             mapNumberTask.remove(taskId);
@@ -166,6 +174,3 @@ public class TaskManager {
         return subTask;
     }
 }
-
-
-
