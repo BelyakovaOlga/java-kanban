@@ -12,8 +12,8 @@ public class Epic extends Task {
     public Epic(String taskName,String taskDescription) {super(taskName,taskDescription,TaskStatus.NEW); }
     @Override
     public String toString() {
-        String strRes;
-        strRes = "EPIC{" +
+        String epicWithSubTask;
+        epicWithSubTask = "EPIC{" +
                 " ID=" + this.getTaskId() +
                 ", name='" + this.getTaskName() + '\'' +
                 ", description='" + this.getTaskDescription() + '\'' +
@@ -21,10 +21,10 @@ public class Epic extends Task {
                 '}' ;
 
         for (SubTask subTask : subTasksList) {
-            strRes = strRes + " \n      " + subTask.toString();
+            epicWithSubTask = epicWithSubTask + " \n      " + subTask.toString();
         }
-        strRes = strRes + " \n ";
-        return strRes;
+        epicWithSubTask = epicWithSubTask + " \n ";
+        return epicWithSubTask;
     }
     public ArrayList<SubTask> getSubTasksList() {
         return this.subTasksList;

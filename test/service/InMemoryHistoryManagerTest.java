@@ -12,12 +12,12 @@ class InMemoryHistoryManagerTest {
     Manager manager = new Manager();
     HistoryManager inMemoryHistoryManager =  Manager.getDefaultHistory();
     InMemoryTaskManager inMemoryTaskManager = (InMemoryTaskManager) manager.getDefault();
-    Task testTst = new Task("Task_1", "Desc_1", TaskStatus.NEW);
-    Epic epicTst = new Epic("Epic_1","Первый эпик");
+    Task testNew = new Task("Task_1", "Desc_1", TaskStatus.NEW);
+    Epic epicNew = new Epic("Epic_1","Первый эпик");
     @Test
     void checkSizeList() {
-        Task taskNew = inMemoryTaskManager.createTask(testTst);
-        Epic taskEpic = inMemoryTaskManager.createEpic(epicTst);
+        Task taskNew = inMemoryTaskManager.createTask(testNew);
+        Epic taskEpic = inMemoryTaskManager.createEpic(epicNew);
 
         inMemoryTaskManager.getTask(taskNew.getTaskId()); //1
         inMemoryTaskManager.getTask(taskNew.getTaskId()); //2

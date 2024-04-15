@@ -9,6 +9,6 @@ class ManagerTest {
     Manager manager = new Manager();
     @Test
     void chechInitManager() {
-        Assertions.assertNotNull(manager.getDefault(), "экземпляры менеджеров не проинициализирован");
+        Assertions.assertNotNull(manager.getDefault(), "экземпляр менеджера не проинициализирован");
     }
 }

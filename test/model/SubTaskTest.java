@@ -7,13 +7,13 @@ import service.Manager;
 class SubTaskTest {
     Manager manager = new Manager();
     InMemoryTaskManager inMemoryTaskManager = (InMemoryTaskManager) manager.getDefault();
-    Epic EpicTstST = new Epic("Epic_1","Первый эпик");
-    Epic newEpicTstsST = inMemoryTaskManager.createEpic(EpicTstST);
-    int  epicId = newEpicTstsST.getTaskId();
+    Epic epicForSubTask = new Epic("Epic_1","Первый эпик");
+    Epic newEpicForSubTask = inMemoryTaskManager.createEpic(epicForSubTask);
+    int  epicId = newEpicForSubTask.getTaskId();
     @Test
-    void chechSubTaskCreate() {
+    void chechSubTaskIsCreated() {
         SubTask  subTask = new SubTask("SubTask_1", "SubTask_Descr", TaskStatus.NEW, epicId);
-        SubTask subtaskCreate = inMemoryTaskManager.createSubTask(subTask);
+        SubTask  subtaskCreate = inMemoryTaskManager.createSubTask(subTask);
         Assertions.assertNotNull(subtaskCreate,"SubTask не создан");
     }
     @Test
@@ -25,9 +25,9 @@ class SubTaskTest {
     @Test
     void checkDeleteSubTask() {
 
-        SubTask  subTaskDel = new SubTask("SubTask_2", "SubTask_Descr2", TaskStatus.NEW, epicId);
-        SubTask  subTaskCreateDel = inMemoryTaskManager.createSubTask(subTaskDel);
-        int taskId = subTaskCreateDel.getTaskId();
+        SubTask  subTaskForDel = new SubTask("SubTask_2", "SubTask_Descr2", TaskStatus.NEW, epicId);
+        SubTask  subTaskTestingDel = inMemoryTaskManager.createSubTask(subTaskForDel);
+        int taskId = subTaskTestingDel.getTaskId();
         inMemoryTaskManager.deleteSubTask(taskId);
         Assertions.assertNull(inMemoryTaskManager.getTask(taskId),"SubTask не удалился");
     }
