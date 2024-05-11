@@ -1,15 +1,18 @@
 package model;
 
 public class SubTask extends Task {
-    private int   epicId;
-    public SubTask(int  taskId, String taskName,String taskDescription,TaskStatus status, int epicId){
-        super(taskId,taskName,taskDescription,status);
+    private int epicId;
+
+    public SubTask(int taskId, String taskName, String taskDescription, TaskStatus status, int epicId) {
+        super(taskId, taskName, taskDescription, status);
         this.epicId = epicId;
     }
-    public SubTask(String taskName, String taskDescription, TaskStatus status, int epicId){
-        super(taskName,taskDescription, status);
+
+    public SubTask(String taskName, String taskDescription, TaskStatus status, int epicId) {
+        super(taskName, taskDescription, status);
         this.epicId = epicId;
     }
+
     @Override
     public String toString() {
         return "SubTask{" +
@@ -21,6 +24,11 @@ public class SubTask extends Task {
                 '}';
     }
 
-    public void setEpicId(int  epicId){this.epicId = epicId;  }
-    public int getEpicId() { return this.epicId; }
+    public void setEpicId(int epicId) {
+        this.epicId = epicId;
+    }
+
+    public int getEpicId() {
+        return this.epicId;
+    }
 }
