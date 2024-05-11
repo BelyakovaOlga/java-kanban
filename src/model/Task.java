@@ -17,6 +17,14 @@ public class Task {
         this.description = taskDescription;
         this.status = status;
     }
+    @Override
+    public boolean equals(Object o){
+        if (this == o) return true;
+        if (!(o instanceof Task task)) return false;
+        return taskId == task.taskId;
+    }
+    @Override
+    public int hashCode() { return taskId; }
 
     @Override
     public String toString() {

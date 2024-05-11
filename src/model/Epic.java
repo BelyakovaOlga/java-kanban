@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 public class Epic extends Task {
-    private  ArrayList<SubTask> subTasksList = new ArrayList<>();
+    private  ArrayList<SubTask> subTasksList;
     public Epic(int  taskId, String taskName,String taskDescription){
         super(taskId,taskName,taskDescription,TaskStatus.NEW);
     }
@@ -20,38 +20,36 @@ public class Epic extends Task {
                 ", status=" + status +
                 '}' ;
 
-        for (SubTask subTask : subTasksList) {
-            epicWithSubTask = epicWithSubTask + " \n      " + subTask.toString();
+        /*if (subTasksList != null) {
+            for (SubTask subTask : subTasksList) {
+                epicWithSubTask = epicWithSubTask + " \n      " + subTask.toString();
+            }
         }
-        epicWithSubTask = epicWithSubTask + " \n ";
+        epicWithSubTask = epicWithSubTask + " \n ";*/
         return epicWithSubTask;
     }
     public ArrayList<SubTask> getSubTasksList() {
         return this.subTasksList;
     }
     public void addSubTask(SubTask  subTask){
-        ArrayList<SubTask> subTasksListNew = this.subTasksList;
-        if (subTasksListNew == null){
-            subTasksListNew = new ArrayList<SubTask>();
+        if (this.subTasksList == null){
+            this.subTasksList = new ArrayList<SubTask>();
         }
-        subTasksListNew.add(subTask);
+        this.subTasksList.add(subTask);
     }
     public void removeSubTask(SubTask  subTask){
-        ArrayList<SubTask> subTasksListNew = this.subTasksList;
-        if (subTasksListNew != null){
-            subTasksListNew.remove(subTask);
+        if (this.subTasksList != null){
+            this.subTasksList.remove(subTask);
         }
     }
     public void removeSubAllSubTask() {
-        ArrayList<SubTask> subTasksListNew = this.subTasksList;
-        if (subTasksListNew != null){
-            subTasksListNew.clear();
+        if (this.subTasksList != null){
+            this.subTasksList.clear();
         }
     }
     public TaskStatus calulateEpicStatus() {
-        ArrayList<SubTask> subTasksList = this.subTasksList;
         TaskStatus status;
-        for (SubTask subTask : subTasksList) {
+        for (SubTask subTask : this.subTasksList) {
             if (subTask.getTaskStatus() != TaskStatus.DONE) {
                 return TaskStatus.NEW;
             }

@@ -34,4 +34,6 @@ class EpicTest {
         Assertions.assertEquals(oldName,epicAfterUpd.getTaskName());
         Assertions.assertNotEquals(oldDescr,epicAfterUpd.getTaskDescription(),"Описание не поменялось");
     }
+
+
 }

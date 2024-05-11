@@ -25,5 +25,5 @@ public interface TaskManager {
     List<Task> getAllTasks();
     List<Epic> getAllEpics();
     List<SubTask> getAllSubTasks();
-    ArrayList<Task> getHistory();
+    List<Task> getHistory();
 }
