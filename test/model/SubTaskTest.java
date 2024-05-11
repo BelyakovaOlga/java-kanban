@@ -27,11 +27,10 @@ class SubTaskTest {
 
     @Test
     void checkDeleteSubTask() {
-
         SubTask subTaskForDel = new SubTask("SubTask_2", "SubTask_Descr2", TaskStatus.NEW, epicId);
         SubTask subTaskTestingDel = inMemoryTaskManager.createSubTask(subTaskForDel);
         int taskId = subTaskTestingDel.getTaskId();
         inMemoryTaskManager.deleteSubTask(taskId);
-        Assertions.assertNull(inMemoryTaskManager.getTask(taskId), "SubTask не удалился");
+        Assertions.assertNull(inMemoryTaskManager.getSubTask(taskId), "SubTask не удалился");
     }
 }
