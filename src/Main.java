@@ -1,7 +1,5 @@
 import model.TaskStatus;
 import service.*;
-import service.InMemoryHistoryManager;
-import service.HistoryManager;
 import model.Task;
 import model.Epic;
 import model.SubTask;
@@ -9,7 +7,7 @@ import model.SubTask;
 public class Main {
     public static void main(String[] args) {
 
-        TaskManager  taskManager = Manager.getDefault();
+        TaskManager taskManager = Manager.getDefault();
 
         System.out.println("Создаем задачи разных типов:");
         Task task1 = taskManager.createTask(new Task("Task_1", "Desc_1", TaskStatus.NEW));

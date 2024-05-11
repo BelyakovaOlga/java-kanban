@@ -15,28 +15,30 @@ class TaskTest {
 
     @Test
     @DisplayName("Должна совпадать со своей копией")
-    void  shouldEqualsWithCopy() {
-        Task taskOrig = new Task("Task","Задача",TaskStatus.NEW);
-        Task taskCopy = new Task("Task","Задача",TaskStatus.NEW);
-        assertEqualsTask(taskOrig,taskCopy, "Эпики должны совпадать");
+    void shouldEqualsWithCopy() {
+        Task taskOrig = new Task("Task", "Задача", TaskStatus.NEW);
+        Task taskCopy = new Task("Task", "Задача", TaskStatus.NEW);
+        assertEqualsTask(taskOrig, taskCopy, "Эпики должны совпадать");
     }
-    private static void assertEqualsTask(Task taskOrig, Task taskCopy, String message){
-        Assertions.assertEquals(taskOrig.getTaskId(),taskCopy.getTaskId(),"Id");
-        Assertions.assertEquals(taskOrig.getTaskName(),taskCopy.getTaskName(),"Name");
+
+    private static void assertEqualsTask(Task taskOrig, Task taskCopy, String message) {
+        Assertions.assertEquals(taskOrig.getTaskId(), taskCopy.getTaskId(), "Id");
+        Assertions.assertEquals(taskOrig.getTaskName(), taskCopy.getTaskName(), "Name");
     }
+
     @Test
     @DisplayName("Должен искать задачу по ее Id")
     void checkGetTaskById() {
-        int  taskId = taskNew.getTaskId();
+        int taskId = taskNew.getTaskId();
         Task taskGetTaskById = inMemoryTaskManager.getTask(taskId);
-        Assertions.assertEquals(taskId,taskGetTaskById.getTaskId(), "Поиск Task по TaskId неверный");
+        Assertions.assertEquals(taskId, taskGetTaskById.getTaskId(), "Поиск Task по TaskId неверный");
     }
+
     @Test
     @DisplayName("Должен создавать новую задачу")
-    void shouldCreatTask(){
+    void shouldCreatTask() {
         Task testIsCreated = new Task("Task_Create", "Desc_Create", TaskStatus.NEW);
         Task taskTestIsCreated = inMemoryTaskManager.createTask(testIsCreated);
         Assertions.assertNotNull(taskTestIsCreated, "Task не создан");
     }
-
 }
