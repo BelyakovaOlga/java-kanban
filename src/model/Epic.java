@@ -26,13 +26,6 @@ public class Epic extends Task {
                 ", description='" + this.getTaskDescription() + '\'' +
                 ", status=" + status +
                 '}';
-
-        /*if (subTasksList != null) {
-            for (SubTask subTask : subTasksList) {
-                epicWithSubTask = epicWithSubTask + " \n      " + subTask.toString();
-            }
-        }
-        epicWithSubTask = epicWithSubTask + " \n ";*/
         return epicWithSubTask;
     }
 
