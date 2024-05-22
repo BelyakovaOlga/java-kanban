@@ -9,8 +9,8 @@ public class Epic extends Task {
         super(taskId, taskName, taskDescription, TaskStatus.NEW);
     }
 
-    public Epic(int taskId,String taskName, String taskDescription, TaskStatus status) {
-        super(taskId,taskName, taskDescription, status);
+    public Epic(int taskId, String taskName, String taskDescription, TaskStatus status) {
+        super(taskId, taskName, taskDescription, status);
     }
 
     public Epic(String taskName, String taskDescription) {
@@ -60,8 +60,10 @@ public class Epic extends Task {
         }
         return TaskStatus.DONE;
     }
+
     @Override
-    public  TaskType getTaskType() {
+    public TaskType getTaskType() {
+
         return TaskType.Epic;
     }
 }
