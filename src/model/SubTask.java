@@ -25,10 +25,16 @@ public class SubTask extends Task {
     }
 
     public void setEpicId(int epicId) {
-        this.epicId = epicId;
+       this.epicId = epicId;
     }
 
-    public int getEpicId() {
-        return this.epicId;
+    @Override
+    public Integer getEpicId() {
+       return epicId;
     }
-}
+
+    public  TaskType getTaskType() {
+        return TaskType.SubTask;
+    }
+
+  }

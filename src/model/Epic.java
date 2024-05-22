@@ -9,8 +9,8 @@ public class Epic extends Task {
         super(taskId, taskName, taskDescription, TaskStatus.NEW);
     }
 
-    public Epic(String taskName, String taskDescription, TaskStatus status) {
-        super(taskName, taskDescription, status);
+    public Epic(int taskId,String taskName, String taskDescription, TaskStatus status) {
+        super(taskId,taskName, taskDescription, status);
     }
 
     public Epic(String taskName, String taskDescription) {
@@ -53,12 +53,15 @@ public class Epic extends Task {
     }
 
     public TaskStatus calulateEpicStatus() {
-        TaskStatus status;
         for (SubTask subTask : this.subTasksList) {
             if (subTask.getTaskStatus() != TaskStatus.DONE) {
                 return TaskStatus.NEW;
             }
         }
         return TaskStatus.DONE;
+    }
+    @Override
+    public  TaskType getTaskType() {
+        return TaskType.Epic;
     }
 }
