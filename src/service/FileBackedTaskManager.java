@@ -162,14 +162,14 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             reader.readLine();
             while (reader.ready()) {
                 String line = reader.readLine();
-
                 fromString(line);
             }
-        } catch(IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-    public static FileBackedTaskManager loadFromFile(HistoryManager historyManager,File file){
+
+    public static FileBackedTaskManager loadFromFile(HistoryManager historyManager, File file) {
         FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager(historyManager, file);
         fileBackedTaskManager.restoreTasks(file);
         return fileBackedTaskManager;
