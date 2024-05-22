@@ -33,7 +33,7 @@ public class Task {
 
     @Override
     public String toString() {
-         return "Task{" +
+        return "Task{" +
                 " ID=" + taskId +
                 ", name='" + name + '\'' +
                 ", description '" + description + '\'' +
@@ -56,6 +56,7 @@ public class Task {
     public TaskStatus getTaskStatus() {
         return status;
     }
+
     public Integer getEpicId() {
         return 0;
     }
@@ -76,8 +77,9 @@ public class Task {
     public void setStatus(TaskStatus status) {
         this.status = status;
     }
-    public  TaskType getTaskType() {
+
+    public TaskType getTaskType() {
         return TaskType.Task;
     }
-
 }
+
