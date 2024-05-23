@@ -19,7 +19,7 @@ public class FileBackedTaskManagerTest {
     void shouldSaveTaskInFile() throws IOException {
         File file = File.createTempFile("tstTask", ".csv");
         TaskManager  taskManager = new FileBackedTaskManager(new InMemoryHistoryManager(),file);
-        Task task1 = taskManager.createTask(new Task("Task_1", "Desc_1", TaskStatus.NEW));
+        Task task1 = taskManager.createTask(new Task("Task1", "Desc1", TaskStatus.NEW));
         try {
             String     string = Files.readString(file.toPath());
             String[]   lines = string.split("\n");
@@ -39,9 +39,9 @@ public class FileBackedTaskManagerTest {
     void shouldSaveAllTasksInFile() throws IOException {
         File file = File.createTempFile("tstTask", ".csv");
         TaskManager  taskManager = new FileBackedTaskManager(new InMemoryHistoryManager(),file);
-        Task     task1 = taskManager.createTask(new Task("Task_1", "Desc_1", TaskStatus.NEW));
-        Epic     epic1 = taskManager.createEpic(new Epic("Epic_1", "EpicDescr_1"));
-        SubTask  subTask1 = taskManager.createSubTask(new SubTask("SubTask_1", "SubTaskDescr_1", TaskStatus.NEW, epic1.getTaskId()));
+        Task     task1 = taskManager.createTask(new Task("Task1", "Desc1", TaskStatus.NEW));
+        Epic     epic1 = taskManager.createEpic(new Epic("Epic1", "EpicDescr1"));
+        SubTask  subTask1 = taskManager.createSubTask(new SubTask("SubTask1", "SubTaskDescr1", TaskStatus.NEW, epic1.getTaskId()));
 
         try {
             String   string = Files.readString(file.toPath());
@@ -56,7 +56,7 @@ public class FileBackedTaskManagerTest {
     void shouldReStoreFromFile() throws IOException {
         File file = File.createTempFile("tstTask", ".csv");
         TaskManager  taskManager = new FileBackedTaskManager(new InMemoryHistoryManager(),file);
-        Task task1 = taskManager.createTask(new Task("Task_1", "Desc_1", TaskStatus.NEW));
+        Task task1 = taskManager.createTask(new Task("Task1", "Desc1", TaskStatus.NEW));
         TaskManager  taskManagerReStore = FileBackedTaskManager.loadFromFile(new InMemoryHistoryManager(),file);
         Task taskRestore = taskManagerReStore.getTask(task1.getTaskId());
         assertTask(task1,taskRestore);
