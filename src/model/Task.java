@@ -57,6 +57,11 @@ public class Task {
         return status;
     }
 
+    public Integer getEpicId() {
+        return 0;
+    }
+
+
     public void setTaskId(int taskId) {
         this.taskId = taskId;
     }
@@ -72,4 +77,9 @@ public class Task {
     public void setStatus(TaskStatus status) {
         this.status = status;
     }
+
+    public TaskType getTaskType() {
+        return TaskType.Task;
+    }
 }
+

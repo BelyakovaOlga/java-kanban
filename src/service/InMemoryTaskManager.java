@@ -1,5 +1,6 @@
 package service;
 
+import exception.NotFoundException;
 import model.Epic;
 import model.SubTask;
 import model.Task;
@@ -8,11 +9,11 @@ import java.util.List;
 import java.util.HashMap;
 
 public class InMemoryTaskManager implements TaskManager {
-    int counterTask;
-    private HashMap<Integer, Task> tasks;
-    private HashMap<Integer, Epic> epics;
-    private HashMap<Integer, SubTask> subTasks;
-    private final HistoryManager historyManager;
+    protected int counterTask;
+    final HashMap<Integer, Task> tasks;
+    final HashMap<Integer, Epic> epics;
+    final HashMap<Integer, SubTask> subTasks;
+    final HistoryManager historyManager;
 
     public InMemoryTaskManager(HistoryManager historyManager) {
         this.historyManager = historyManager;
@@ -42,8 +43,11 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public SubTask createSubTask(SubTask subTask) {
-        Epic epic = epics.get(subTask.getEpicId());
-
+        Integer  epicId = subTask.getEpicId();
+        Epic epic = epics.get(epicId);
+        if (epic == null) {
+             throw new NotFoundException("Не найден Epic: " + epicId);
+        }
         subTask.setTaskId(generateTaskId());
         subTasks.put(subTask.getTaskId(), subTask);
         epic.addSubTask(subTask);
@@ -133,6 +137,9 @@ public class InMemoryTaskManager implements TaskManager {
             historyManager.remove(curSubTask.getTaskId());
         }
         if (epics.get(taskId) != null) {
+            for (SubTask subTask:epic.getSubTasksList()) {
+                subTasks.remove(subTask.getTaskId());
+            }
             epic.removeSubAllSubTask();
             epics.remove(taskId);
             historyManager.remove(taskId);
@@ -166,13 +173,17 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void updateSubTask(SubTask subTask) {
+        Integer epicId = subTask.getEpicId();
         SubTask subTaskUpd = subTasks.get(subTask.getTaskId());
         subTaskUpd.setName(subTask.getTaskName());
         subTaskUpd.setDescription(subTask.getTaskDescription());
-        subTaskUpd.setEpicId(subTask.getEpicId());
+        subTaskUpd.setEpicId(epicId);
         subTaskUpd.setStatus(subTask.getTaskStatus());
 
-        Epic epicUpd = epics.get(subTask.getEpicId());
+        Epic epicUpd = epics.get(epicId);
+        if (epicUpd == null) {
+            throw new NotFoundException("Не найден Epic: " + epicId);
+        }
         epicUpd.setStatus(epicUpd.calulateEpicStatus());
     }
 
