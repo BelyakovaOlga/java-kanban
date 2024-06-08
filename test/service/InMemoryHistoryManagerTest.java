@@ -7,6 +7,8 @@ import model.TaskStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,8 +18,8 @@ class InMemoryHistoryManagerTest {
     TaskManager  taskManager = Manager.getDefault();
     InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
 
-    Task task1 = taskManager.createTask(new Task("Task_1", "Desc_1", TaskStatus.NEW));
-    Task task2 = taskManager.createTask(new Task("Task_2", "Desc_2", TaskStatus.NEW));
+    Task task1 = taskManager.createTask(new Task("Task_1", "Desc_1", TaskStatus.NEW, LocalDateTime.of(2024,05,12,14,00), Duration.ofHours(1)));
+    Task task2 = taskManager.createTask(new Task("Task_2", "Desc_2", TaskStatus.NEW,LocalDateTime.of(2024,04,12,14,00), Duration.ofHours(1)));
     Epic epic1 = taskManager.createEpic(new Epic("Epic_1", "EpicDescr_1"));
     @Test
     @DisplayName("Должен добавлять задачи в Историю")

@@ -1,5 +1,7 @@
 package model;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Epic extends Task {
@@ -7,16 +9,23 @@ public class Epic extends Task {
 
     public Epic(int taskId, String taskName, String taskDescription) {
         super(taskId, taskName, taskDescription, TaskStatus.NEW);
+        this.endTime = null;
     }
 
     public Epic(int taskId, String taskName, String taskDescription, TaskStatus status) {
         super(taskId, taskName, taskDescription, status);
+        this.endTime = null;
     }
 
     public Epic(String taskName, String taskDescription) {
-        super(taskName, taskDescription, TaskStatus.NEW);
+        super(taskName, taskDescription);
+        this.duration = null;
+        this.endTime = null;
     }
-
+    public Epic(int taskId,String taskName, String taskDescription, TaskStatus status,LocalDateTime startTime,Duration duration) {
+        super(taskId,taskName, taskDescription,status,startTime,duration);
+        this.endTime = null;
+    }
     @Override
     public String toString() {
         String epicWithSubTask;
@@ -24,7 +33,9 @@ public class Epic extends Task {
                 " ID=" + this.getTaskId() +
                 ", name='" + this.getTaskName() + '\'' +
                 ", description='" + this.getTaskDescription() + '\'' +
-                ", status=" + status +
+                ", status=" + status + + '\'' +
+                ", StartTime=" + startTime + '\'' +
+                ", EndTime=" + endTime +
                 '}';
         return epicWithSubTask;
     }
@@ -51,16 +62,33 @@ public class Epic extends Task {
             this.subTasksList.clear();
         }
     }
+    public void calculateEpicFields() {
+        Duration   localDuration = Duration.ofMinutes(0);
 
-    public TaskStatus calulateEpicStatus() {
         for (SubTask subTask : this.subTasksList) {
             if (subTask.getTaskStatus() != TaskStatus.DONE) {
-                return TaskStatus.NEW;
+                this.status = TaskStatus.NEW;
             }
-        }
-        return TaskStatus.DONE;
-    }
+            if (this.endTime == null) {
+                this.endTime = subTask.endTime;
+            }
+            if (this.startTime == null) {
+                this.startTime = subTask.startTime;
+            }
+            if (this.duration == null) {
+                this.duration = subTask.duration;
+            }
+            if (subTask.startTime.isBefore(this.startTime)) {
+                this.startTime = subTask.getStartTime();
+            }
+            if (subTask.endTime.isAfter(this.endTime)) {
+                this.endTime =  subTask.getEndTime();
+            }
 
+            localDuration = localDuration.plus(subTask.duration);
+        }
+        this.duration = localDuration;
+    }
     @Override
     public TaskType getTaskType() {
 

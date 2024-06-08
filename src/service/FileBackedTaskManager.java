@@ -2,18 +2,22 @@ package service;
 import exception.MExceptionanagerSaveException;
 import model.*;
 import java.io.*;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-
+import java.time.format.DateTimeFormatter;
 public class FileBackedTaskManager extends InMemoryTaskManager {
     File file;
-
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");
     public FileBackedTaskManager(HistoryManager historyManager, File file) {
         super(historyManager);
         this.file = file;
     }
-
+    public FileBackedTaskManager(HistoryManager historyManager) {
+        super(historyManager);
+    }
     @Override
     public Task createTask(Task task) {
         super.createTask(task);
@@ -114,15 +118,34 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         taskStringBuffer.append("Name").append(",");
         taskStringBuffer.append("Status").append(",");
         taskStringBuffer.append("Description").append(",");
-        taskStringBuffer.append("Epic").append("\n");
+        taskStringBuffer.append("Epic");
+        taskStringBuffer.append("StartDate");
+        taskStringBuffer.append("Duration"). append("\n");
 
         return taskStringBuffer.toString();
     }
 
     private String taskToString(Task task) {
-        return task.getTaskId() + "," + task.getTaskType() + "," + task.getTaskName()
+        String   taskToString;
+        String   startTimeString;
+        int      duration;
+
+        if (task.getStartTime() != null) {
+            startTimeString = task.getStartTime().format(formatter);
+        } else {
+            startTimeString = "";
+        }
+        if (task.getDuration() != null) {
+            duration = (int) task.getDuration().toMinutes();
+        } else {
+            duration = 0;
+        }
+
+        taskToString = task.getTaskId() + "," + task.getTaskType() + "," + task.getTaskName()
                 + "," + task.getTaskStatus() + "," + task.getTaskDescription() + ","
-                + task.getEpicId() + "\n";
+                + task.getEpicId() + "," + startTimeString + ","
+                + duration + "\n";
+        return taskToString;
 
     }
 
@@ -130,26 +153,34 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         String[] split = strTask.split(",");
         String strTaskType = split[1];
         String stringStatusValue = split[3];
+        String strinfStartValue = split[6];
         int id = Integer.parseInt(split[0]);
         int epicId = 0;
         Task newTask = null;
         int maxId = 0;
-
+        Duration duration =  Duration.ofMinutes(Long.parseLong(split[7]));
+        LocalDateTime startTime;
+        if (split[6] != "") {
+            startTime =  LocalDateTime.parse(split[6], formatter);
+        }
+        else {
+            startTime = null;
+        }
         if (id > maxId) {
             maxId = id;
         }
         epicId = Integer.parseInt(split[5]);
         switch (TaskType.valueOf(strTaskType)) {
             case Task:
-                newTask = createTask(new Task(id, split[2], split[4], TaskStatus.valueOf(stringStatusValue)));
+                newTask = createTask(new Task(id, split[2], split[4], TaskStatus.valueOf(stringStatusValue),startTime, duration));
                 this.getTask(newTask.getTaskId());
                 return newTask;
             case SubTask:
-                newTask = createSubTask(new SubTask(id, split[2], split[4], TaskStatus.valueOf(stringStatusValue), epicId));
+                newTask = createSubTask(new SubTask(id, split[2], split[4], TaskStatus.valueOf(stringStatusValue), epicId,startTime, duration));
                 this.getSubTask(newTask.getTaskId());
                 return newTask;
             case Epic:
-                newTask = createEpic(new Epic(id, split[2], split[4], TaskStatus.valueOf(stringStatusValue)));
+                newTask = createEpic(new Epic(id, split[2], split[4], TaskStatus.valueOf(stringStatusValue),startTime,duration));
                 this.getEpic(newTask.getTaskId());
                 return newTask;
         }
