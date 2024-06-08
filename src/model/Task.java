@@ -27,9 +27,6 @@ public class Task {
         this.name = taskName;
         this.description = taskDescription;
         this.status = status;
-        //this.startTime = startTime;
-        //this.duration =  Duration.ofMinutes(15);;
-        //this.endTime  = startTime.plus(duration.toMinutes(), ChronoUnit.MINUTES);
     }
 
     public Task(String taskName, String taskDescription, TaskStatus status, LocalDateTime startTime, Duration duration) {
