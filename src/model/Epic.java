@@ -22,10 +22,12 @@ public class Epic extends Task {
         this.duration = null;
         this.endTime = null;
     }
-    public Epic(int taskId,String taskName, String taskDescription, TaskStatus status,LocalDateTime startTime,Duration duration) {
-        super(taskId,taskName, taskDescription,status,startTime,duration);
+
+    public Epic(int taskId, String taskName, String taskDescription, TaskStatus status, LocalDateTime startTime, Duration duration) {
+        super(taskId, taskName, taskDescription, status, startTime, duration);
         this.endTime = null;
     }
+
     @Override
     public String toString() {
         String epicWithSubTask;
@@ -33,7 +35,7 @@ public class Epic extends Task {
                 " ID=" + this.getTaskId() +
                 ", name='" + this.getTaskName() + '\'' +
                 ", description='" + this.getTaskDescription() + '\'' +
-                ", status=" + status + + '\'' +
+                ", status=" + status + +'\'' +
                 ", StartTime=" + startTime + '\'' +
                 ", EndTime=" + endTime +
                 '}';
@@ -62,8 +64,9 @@ public class Epic extends Task {
             this.subTasksList.clear();
         }
     }
+
     public void calculateEpicFields() {
-        Duration   localDuration = Duration.ofMinutes(0);
+        Duration localDuration = Duration.ofMinutes(0);
 
         for (SubTask subTask : this.subTasksList) {
             if (subTask.getTaskStatus() != TaskStatus.DONE) {
@@ -82,16 +85,18 @@ public class Epic extends Task {
                 this.startTime = subTask.getStartTime();
             }
             if (subTask.endTime.isAfter(this.endTime)) {
-                this.endTime =  subTask.getEndTime();
+                this.endTime = subTask.getEndTime();
             }
 
             localDuration = localDuration.plus(subTask.duration);
         }
         this.duration = localDuration;
     }
+
     @Override
     public TaskType getTaskType() {
 
         return TaskType.Epic;
     }
 }
+

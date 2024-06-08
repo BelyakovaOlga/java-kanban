@@ -12,6 +12,7 @@ public class Task {
     protected Duration duration;
     protected LocalDateTime startTime;
     protected LocalDateTime endTime;
+
     public Task(int taskId, String taskName, String taskDescription, TaskStatus status, LocalDateTime startTime,Duration duration) {
         this.taskId = taskId;
         this.name = taskName;
@@ -21,6 +22,7 @@ public class Task {
         this.duration = duration;
         this.endTime  = startTime.plus(duration.toMinutes(), ChronoUnit.MINUTES);
     }
+
     public Task(int taskId, String taskName, String taskDescription, TaskStatus status) {
         this.taskId = taskId;
         this.name = taskName;
@@ -30,6 +32,7 @@ public class Task {
         //this.duration =  Duration.ofMinutes(15);;
         //this.endTime  = startTime.plus(duration.toMinutes(), ChronoUnit.MINUTES);
     }
+
     public Task(String taskName, String taskDescription, TaskStatus status,LocalDateTime startTime,Duration duration) {
         this.taskId = taskId;
         this.name = taskName;
@@ -39,6 +42,7 @@ public class Task {
         this.duration = duration;
         this.endTime  = startTime.plus(duration.toMinutes(), ChronoUnit.MINUTES);
     }
+
     public Task(String taskName, String taskDescription) {
         this.name = taskName;
         this.description = taskDescription;
@@ -87,7 +91,6 @@ public class Task {
     public Integer getEpicId() {
         return 0;
     }
-
 
     public void setTaskId(int taskId) {
         this.taskId = taskId;
