@@ -7,7 +7,6 @@ import model.SubTask;
 import model.Task;
 import java.util.stream.Collectors;
 import java.util.*;
-import java.util.stream.Stream;
 
 public class InMemoryTaskManager implements TaskManager {
     protected int counterTask;
@@ -15,7 +14,7 @@ public class InMemoryTaskManager implements TaskManager {
     final HashMap<Integer, Epic> epics;
     final HashMap<Integer, SubTask> subTasks;
     final HistoryManager historyManager;
-    final Set<Task>  priorTasks = new TreeSet<Task>(Comparator.comparing(Task::getStartTime));
+    final Set<Task> priorTasks = new TreeSet<Task>(Comparator.comparing(Task::getStartTime));
 
     public InMemoryTaskManager(HistoryManager historyManager) {
         this.historyManager = historyManager;
@@ -49,7 +48,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public SubTask createSubTask(SubTask subTask) {
-        Integer  epicId = subTask.getEpicId();
+        Integer epicId = subTask.getEpicId();
         Epic epic = epics.get(epicId);
         if (epic == null) {
             throw new NotFoundException("Не найден Epic: " + epicId);
@@ -155,14 +154,15 @@ public class InMemoryTaskManager implements TaskManager {
 
         if (epics.get(taskId) != null) {
             epic.getSubTasksList().stream()
-                            .peek(subTask -> subTasks.remove(subTask.getTaskId()))
-                            .collect(Collectors.toList());
+                    .peek(subTask -> subTasks.remove(subTask.getTaskId()))
+                    .collect(Collectors.toList());
 
             epic.removeSubAllSubTask();
             epics.remove(taskId);
             historyManager.remove(taskId);
         }
     }
+
     @Override
     public void deleteSubTask(int taskId) {
         SubTask subTask = subTasks.get(taskId);
@@ -177,6 +177,7 @@ public class InMemoryTaskManager implements TaskManager {
         epic.calculateEpicFields();
         priorTasks.remove(subTask);
     }
+
     @Override
     public void updateTask(Task task) {
         tasks.put(task.getTaskId(), task);
@@ -189,13 +190,13 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void updateEpic(Epic epic) {
-        epics.put(epic.getTaskId(),epic);
+        epics.put(epic.getTaskId(), epic);
     }
 
     @Override
     public void updateSubTask(SubTask subTask) {
         Integer epicId = subTask.getEpicId();
-        subTasks.put(subTask.getTaskId(),subTask);
+        subTasks.put(subTask.getTaskId(), subTask);
 
         Epic epicUpd = epics.get(epicId);
         if (epicUpd == null) {
@@ -215,22 +216,25 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public List<Task> getHistory() {
+
         return historyManager.getHistory();
     }
-    public Set<Task>  getPrioritizedTasks() {
+
+    public Set<Task> getPrioritizedTasks() {
 
         return priorTasks;
     }
-    private boolean checkTaskTime(Task  task) {
 
+    private boolean checkTaskTime(Task task) {
         for (Task taskCurrent : priorTasks) {
             if (task.getTaskId() == taskCurrent.getTaskId()) {
                 continue;
             }
-            if(task.getStartTime().isBefore(taskCurrent.getEndTime())  && task.getEndTime().isAfter(taskCurrent.getStartTime())) {
+            if (task.getStartTime().isBefore(taskCurrent.getEndTime()) && task.getEndTime().isAfter(taskCurrent.getStartTime())) {
                 throw new ValidationException("Обнаружено пересечение с задаче " + taskCurrent.getTaskId());
             }
         }
         return true;
     }
 }
+
