@@ -1,7 +1,6 @@
 package model;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 public class Task {
@@ -13,14 +12,14 @@ public class Task {
     protected LocalDateTime startTime;
     protected LocalDateTime endTime;
 
-    public Task(int taskId, String taskName, String taskDescription, TaskStatus status, LocalDateTime startTime,Duration duration) {
+    public Task(int taskId, String taskName, String taskDescription, TaskStatus status, LocalDateTime startTime, Duration duration) {
         this.taskId = taskId;
         this.name = taskName;
         this.description = taskDescription;
         this.status = status;
         this.startTime = startTime;
         this.duration = duration;
-        this.endTime  = startTime.plus(duration.toMinutes(), ChronoUnit.MINUTES);
+        this.endTime = startTime.plus(duration.toMinutes(), ChronoUnit.MINUTES);
     }
 
     public Task(int taskId, String taskName, String taskDescription, TaskStatus status) {
@@ -33,14 +32,14 @@ public class Task {
         //this.endTime  = startTime.plus(duration.toMinutes(), ChronoUnit.MINUTES);
     }
 
-    public Task(String taskName, String taskDescription, TaskStatus status,LocalDateTime startTime,Duration duration) {
+    public Task(String taskName, String taskDescription, TaskStatus status, LocalDateTime startTime, Duration duration) {
         this.taskId = taskId;
         this.name = taskName;
         this.description = taskDescription;
         this.status = status;
         this.startTime = startTime;
         this.duration = duration;
-        this.endTime  = startTime.plus(duration.toMinutes(), ChronoUnit.MINUTES);
+        this.endTime = startTime.plus(duration.toMinutes(), ChronoUnit.MINUTES);
     }
 
     public Task(String taskName, String taskDescription) {
@@ -111,9 +110,11 @@ public class Task {
     public TaskType getTaskType() {
         return TaskType.Task;
     }
+
     public LocalDateTime getStartTime() {
         return startTime;
     }
+
     public LocalDateTime getEndTime() {
         return endTime;
     }
