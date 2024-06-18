@@ -1,10 +1,26 @@
 package model;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 public class Task {
     private int taskId;
     private String name;
     private String description;
     protected TaskStatus status;
+    protected Duration duration;
+    protected LocalDateTime startTime;
+    protected LocalDateTime endTime;
+
+    public Task(int taskId, String taskName, String taskDescription, TaskStatus status, LocalDateTime startTime, Duration duration) {
+        this.taskId = taskId;
+        this.name = taskName;
+        this.description = taskDescription;
+        this.status = status;
+        this.startTime = startTime;
+        this.duration = duration;
+        this.endTime = startTime.plus(duration.toMinutes(), ChronoUnit.MINUTES);
+    }
 
     public Task(int taskId, String taskName, String taskDescription, TaskStatus status) {
         this.taskId = taskId;
@@ -13,10 +29,19 @@ public class Task {
         this.status = status;
     }
 
-    public Task(String taskName, String taskDescription, TaskStatus status) {
+    public Task(String taskName, String taskDescription, TaskStatus status, LocalDateTime startTime, Duration duration) {
+        this.taskId = taskId;
         this.name = taskName;
         this.description = taskDescription;
         this.status = status;
+        this.startTime = startTime;
+        this.duration = duration;
+        this.endTime = startTime.plus(duration.toMinutes(), ChronoUnit.MINUTES);
+    }
+
+    public Task(String taskName, String taskDescription) {
+        this.name = taskName;
+        this.description = taskDescription;
     }
 
     @Override
@@ -37,7 +62,9 @@ public class Task {
                 " ID=" + taskId +
                 ", name='" + name + '\'' +
                 ", description '" + description + '\'' +
-                ", status=" + status +
+                ", status=" + status + '\'' +
+                ", StartTime=" + startTime + '\'' +
+                ", EndTime=" + endTime +
                 '}';
     }
 
@@ -61,7 +88,6 @@ public class Task {
         return 0;
     }
 
-
     public void setTaskId(int taskId) {
         this.taskId = taskId;
     }
@@ -80,6 +106,18 @@ public class Task {
 
     public TaskType getTaskType() {
         return TaskType.Task;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    public Duration getDuration() {
+        return duration;
     }
 }
 
