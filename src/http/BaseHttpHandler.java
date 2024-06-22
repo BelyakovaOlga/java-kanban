@@ -35,8 +35,8 @@ public class BaseHttpHandler {
     }
 
     protected void handleDelete(HttpExchange httpExchange) throws IOException {
-        Optional<Integer> taskIdOpt = getTaskId(httpExchange);
-        Integer taskId = taskIdOpt.get();
+        Optional<Integer> taskIdOptional = getTaskId(httpExchange);
+        Integer taskId = taskIdOptional.get();
         delete(taskId);
         sendText(httpExchange, gson.toJson(null));
     }
@@ -60,16 +60,16 @@ public class BaseHttpHandler {
     }
 
     protected String[] parseTask(InputStream bodyInputStream, Integer taskId) throws IOException {
-        String[] valueArrya = new String[7];
+        String[] valueArray = new String[7];
         String body = new String(bodyInputStream.readAllBytes(), StandardCharsets.UTF_8).replace("{", "").replace("}", "");
         String[] stringArrayBody = body.split(",");
 
         for (int i = 0; i < stringArrayBody.length; i++) {
             String curSection = stringArrayBody[i];
             String[] sectionArray = curSection.split(":");
-            valueArrya[i] = sectionArray[1].replace("\"", "").replace("\n", "").trim();
+            valueArray[i] = sectionArray[1].replace("\"", "").replace("\n", "").trim();
         }
-        return valueArrya;
+        return valueArray;
     }
 }
 

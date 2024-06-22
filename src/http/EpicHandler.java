@@ -42,11 +42,11 @@ public class EpicHandler extends BaseHttpHandler implements HttpHandler {
     }
 
     protected void handlePost(HttpExchange httpExchange) throws IOException {
-        Optional<Integer> taskIdOpt = getTaskId(httpExchange);
+        Optional<Integer> taskIdOptional = getTaskId(httpExchange);
         Integer taskId = 0;
         Epic epic;
-        if (!taskIdOpt.isEmpty()) {
-            taskId = taskIdOpt.get();
+        if (!taskIdOptional.isEmpty()) {
+            taskId = taskIdOptional.get();
         }
         String[] valueArrya = parseTask(httpExchange.getRequestBody(), taskId);
 
@@ -69,11 +69,11 @@ public class EpicHandler extends BaseHttpHandler implements HttpHandler {
     }
 
     protected void handleGet(HttpExchange httpExchange) throws IOException {
-        Optional<Integer> taskIdOpt = getTaskId(httpExchange);
-        if (taskIdOpt.isEmpty()) {
+        Optional<Integer> taskIdOptional = getTaskId(httpExchange);
+        if (taskIdOptional.isEmpty()) {
             sendText(httpExchange, gson.toJson(manager.getAllEpics()));
         } else {
-            sendText(httpExchange, gson.toJson(manager.getEpic(taskIdOpt.get())));
+            sendText(httpExchange, gson.toJson(manager.getEpic(taskIdOptional.get())));
         }
     }
 }
