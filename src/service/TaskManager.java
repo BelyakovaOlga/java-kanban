@@ -3,10 +3,13 @@ package service;
 import model.Epic;
 import model.SubTask;
 import model.Task;
+
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Set;
 
 public interface TaskManager {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH-mm");
     Task createTask(Task task);
 
     Epic createEpic(Epic epic);
@@ -46,4 +49,7 @@ public interface TaskManager {
     List<Task> getHistory();
 
     Set<Task> getPrioritizedTasks();
+    static DateTimeFormatter getDateTimeFormatter() {
+        return  formatter;
+    }
 }

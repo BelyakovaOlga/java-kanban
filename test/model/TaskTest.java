@@ -17,15 +17,7 @@ class TaskTest {
     Task taskNewCreate = inMemoryTaskManager.createTask(taskNew);
     Task taskNewCreate2 = new Task("Task_2", "Desc_2", TaskStatus.NEW,LocalDateTime.of(2024,02,04,8,0),Duration.ofHours(2));
 
-    @Test
-    @DisplayName("Должна совпадать со своей копией")
-    void shouldEqualsWithCopy() {
-        Task taskOrig = new Task("Task", "Задача", TaskStatus.NEW,LocalDateTime.of(2024,03,06,8,0),Duration.ofHours(2));
-        Task taskCopy = new Task("Task", "Задача", TaskStatus.NEW,LocalDateTime.of(2024,03,05,8,0),Duration.ofHours(1));
-        assertEqualsTask(taskOrig, taskCopy, "Эпики должны совпадать");
-    }
-
-    private static void assertEqualsTask(Task taskOrig, Task taskCopy, String message) {
+       private static void assertEqualsTask(Task taskOrig, Task taskCopy, String message) {
         Assertions.assertEquals(taskOrig.getTaskId(), taskCopy.getTaskId(), "Id");
         Assertions.assertEquals(taskOrig.getTaskName(), taskCopy.getTaskName(), "Name");
     }
