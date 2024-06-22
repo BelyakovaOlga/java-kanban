@@ -10,6 +10,7 @@ import java.util.Set;
 
 public interface TaskManager {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH-mm");
+
     Task createTask(Task task);
 
     Epic createEpic(Epic epic);
@@ -49,7 +50,8 @@ public interface TaskManager {
     List<Task> getHistory();
 
     Set<Task> getPrioritizedTasks();
+
     static DateTimeFormatter getDateTimeFormatter() {
-        return  formatter;
+        return formatter;
     }
 }
