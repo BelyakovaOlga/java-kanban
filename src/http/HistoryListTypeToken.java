@@ -6,4 +6,6 @@ import model.Task;
 import java.util.List;
 
 public class HistoryListTypeToken extends TypeToken<List<Task>> {
+
 }
+

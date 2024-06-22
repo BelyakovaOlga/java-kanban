@@ -10,6 +10,7 @@ public class HistoryHandler extends BaseHttpHandler implements HttpHandler {
     public HistoryHandler(TaskManager manager) {
         this.manager = manager;
     }
+
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         try (httpExchange) {
@@ -29,7 +30,8 @@ public class HistoryHandler extends BaseHttpHandler implements HttpHandler {
             exception.printStackTrace();
         }
     }
+
     protected void handleGet(HttpExchange httpExchange) throws IOException {
-       sendText(httpExchange, gson.toJson(manager.getHistory()));
+        sendText(httpExchange, gson.toJson(manager.getHistory()));
     }
 }

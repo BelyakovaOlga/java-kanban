@@ -6,10 +6,11 @@ import service.TaskManager;
 
 import java.io.IOException;
 
-public class PrioritizedHandler  extends BaseHttpHandler implements HttpHandler  {
+public class PrioritizedHandler  extends BaseHttpHandler implements HttpHandler {
     public PrioritizedHandler(TaskManager manager) {
         this.manager = manager;
     }
+
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
 
@@ -30,7 +31,9 @@ public class PrioritizedHandler  extends BaseHttpHandler implements HttpHandler 
             exception.printStackTrace();
         }
     }
+
     protected void handleGet(HttpExchange httpExchange) throws IOException {
         sendText(httpExchange, gson.toJson(manager.getPrioritizedTasks()));
     }
 }
+

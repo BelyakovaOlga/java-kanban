@@ -1,18 +1,13 @@
 package http;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import exception.NotFoundException;
-import exception.NotParmException;
 import model.Task;
 import model.TaskStatus;
 import service.TaskManager;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 class TaskHandler extends BaseHttpHandler implements HttpHandler {
@@ -49,7 +44,7 @@ class TaskHandler extends BaseHttpHandler implements HttpHandler {
     protected void handlePost(HttpExchange httpExchange) throws IOException {
         Optional<Integer> taskIdOpt = getTaskId(httpExchange);
         Integer taskId = 0;
-        Task    task;
+        Task task;
         if (!taskIdOpt.isEmpty()) {
             taskId = taskIdOpt.get();
         }
@@ -72,6 +67,7 @@ class TaskHandler extends BaseHttpHandler implements HttpHandler {
     protected void delete(Integer taskId) {
         manager.deleteTask(taskId);
     }
+
     protected void handleGet(HttpExchange httpExchange) throws IOException {
         Optional<Integer> taskIdOpt = getTaskId(httpExchange);
         if (taskIdOpt.isEmpty()) {

@@ -14,9 +14,10 @@ import com.google.gson.Gson;
 import service.TaskManager;
 
 public class BaseHttpHandler {
-    ErrorHandler  errorHandler = new ErrorHandler();
+    ErrorHandler errorHandler = new ErrorHandler();
     Gson gson = getGson();
     TaskManager manager;
+
     static Gson getGson() {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter());
@@ -32,13 +33,17 @@ public class BaseHttpHandler {
         h.getResponseBody().write(resp);
         h.close();
     }
+
     protected void handleDelete(HttpExchange httpExchange) throws IOException {
         Optional<Integer> taskIdOpt = getTaskId(httpExchange);
         Integer taskId = taskIdOpt.get();
         delete(taskId);
         sendText(httpExchange, gson.toJson(null));
     }
-    protected void delete(Integer taskId) {}
+
+    protected void delete(Integer taskId) {
+    }
+
     protected Optional<Integer> getTaskId(HttpExchange exchange) {
         String[] pathParts = exchange.getRequestURI().getPath().split("/");
         Integer taskId;
@@ -67,3 +72,4 @@ public class BaseHttpHandler {
         return valueArrya;
     }
 }
+
