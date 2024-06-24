@@ -7,11 +7,9 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import java.time.format.DateTimeFormatter;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
     File file;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");
 
     public FileBackedTaskManager(HistoryManager historyManager, File file) {
         super(historyManager);

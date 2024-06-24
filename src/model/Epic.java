@@ -25,7 +25,10 @@ public class Epic extends Task {
 
     public Epic(int taskId, String taskName, String taskDescription, TaskStatus status, LocalDateTime startTime, Duration duration) {
         super(taskId, taskName, taskDescription, status, startTime, duration);
-        this.endTime = null;
+    }
+
+    public Epic(String taskName, String taskDescription, TaskStatus status, LocalDateTime startTime, Duration duration) {
+        super(taskName, taskDescription, status, startTime, duration);
     }
 
     @Override

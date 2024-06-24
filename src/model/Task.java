@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 public class Task {
-    private int taskId;
+    private Integer taskId;
     private String name;
     private String description;
     protected TaskStatus status;
@@ -119,5 +119,6 @@ public class Task {
     public Duration getDuration() {
         return duration;
     }
+
 }
 
